@@ -6,7 +6,7 @@ Database used: mySQL
 
 DB_name: java
 
-## Admin credentianls
+## Admin credentials
 u: admin@admin.com
 
 p: admin123
