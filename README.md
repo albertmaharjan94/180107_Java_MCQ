@@ -14,7 +14,7 @@ p: admin123
 
 This project is for educational purpose only
 
-This is my 3rd semester project where multiple choice questinnare are to be answered by users.
+This is my 3rd semester project where multiple choice questionnare are to be answered by users.
 
 There are multiple subjects to choose
 
