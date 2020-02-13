@@ -71,6 +71,7 @@ public class AdminSubject extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin | Subject");
         setResizable(false);
         setSize(new java.awt.Dimension(800, 400));
 

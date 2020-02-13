@@ -10,11 +10,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,14 +27,19 @@ import javax.swing.JOptionPane;
  */
 public class UserDash extends javax.swing.JFrame {
     
-    String logged="";
-    String loggedId="";
+    String logged="albert";
+    String loggedId="9";
+    int totalQ=0;
+    int selectedSubject=0;
     /**
      * Creates new form UserDash
      */
     public UserDash() throws SQLException {
         
-        
+//        initComponents();
+//        
+//        this.setLocationRelativeTo(null);
+//        init();
     }
     public void setVar(String s,String id) throws SQLException
     {
@@ -39,6 +49,7 @@ public class UserDash extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         init();
+        
     }
 
     /**
@@ -54,13 +65,22 @@ public class UserDash extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         cmbSubject = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblAtempted = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        btnStart = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblResult = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("User | Dashboard");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -75,6 +95,14 @@ public class UserDash extends javax.swing.JFrame {
 
         jLabel3.setText("Select Subject");
 
+        jLabel5.setText("Total Sets: ");
+
+        lblTotal.setText("jLabel6");
+
+        jLabel6.setText("Atempted:");
+
+        lblAtempted.setText("jLabel6");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -84,27 +112,64 @@ public class UserDash extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(cmbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(277, 277, 277))
+                .addGap(45, 45, 45)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblAtempted, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbSubject, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(jLabel3))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(lblAtempted))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(lblTotal))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbSubject)
+                        .addComponent(jLabel3)))
                 .addContainerGap())
         );
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Results");
+
+        btnStart.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnStart.setText("Begin Test");
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnStart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(296, 296, 296))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         btnLogout.setText("LOGOUT");
@@ -121,21 +186,34 @@ public class UserDash extends javax.swing.JFrame {
 
         lblUser.setText("jLabel4");
 
+        tblResult.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "#", "Subject", "Question Set", "Total", "Scored", "Percentage", "Result"
+            }
+        ));
+        tblResult.setEnabled(false);
+        jScrollPane1.setViewportView(tblResult);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(588, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lblUser))
@@ -179,96 +257,44 @@ public class UserDash extends javax.swing.JFrame {
 
     private void cmbSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSubjectActionPerformed
         // TODO add your handling code here:
-        jPanel4.removeAll();
-        jPanel4.updateUI();
         if(cmbSubject.getSelectedItem()!=null){
+            totalQ=0;
+            int attempted=0;        
             try {
                 ResultSet rsSub=Connect.getResult("select * from subjects where name='"+cmbSubject.getSelectedItem()+"'");
                 if(rsSub.next()){
-                    ResultSet rs=Connect.getResult("select * from question_sets where subject_id="+rsSub.getInt("id")+"");
-                    int x=10;
-                    int y=10;
+                    selectedSubject=rsSub.getInt("id");
+                    ResultSet attemptedCount=Connect.getResult("select count(*) from reports as r, question_sets as qs, subjects as s"
+                                + " where r.question_set_id=qs.id and qs.subject_id=s.id and s.id="+selectedSubject+" and user_id="+loggedId+"  ");
+                        
+                    ResultSet rs=Connect.getResult("select * from question_sets where subject_id="+selectedSubject+"");
                     
+                    
+                    if(attemptedCount.next()){
+                        attempted=attemptedCount.getInt(1);
+                    }
                     while(rs.next()){
                         int id=rs.getInt("id");
                         
-                        String setName=rs.getString("title");
                         int qCount=getQuestionCount(id);
-                        ResultSet report=Connect.getResult("select * from reports where user_id="+loggedId+" AND question_set_id="+id+"");
                         
-                        JButton j1=new JButton();
-                        if(qCount<1){
-                            j1.setEnabled(false);
-                            
-                        }
-                        boolean chk=report.next();
-                        if(chk){
-                            j1.setForeground(Color.green);
-                        }
-                         
-                        j1.addMouseListener(new MouseAdapter() {
-                        @Override
-                            public void mousePressed(MouseEvent e) {
-                                if(qCount<1){
-                                    JOptionPane.showMessageDialog(null, 
-                                            "There are no question in this set right now. Please try again later.", 
-                                            "Warning", JOptionPane.INFORMATION_MESSAGE);    
-                                    
-                                }
-                                else{
-                                    if(chk){
-                                        int dialogButton = JOptionPane.YES_NO_OPTION;
-                                        int dialogResult = JOptionPane.showConfirmDialog (null, 
-                                                "You have already attempted this set. Do you want to view result of this set?",
-                                                "Result?",dialogButton);
-                                        if(dialogResult == JOptionPane.YES_OPTION){
-                                            try {    
-                                                JOptionPane.showMessageDialog(null, 
-                                                        "User: "+logged+"\nTotal Question:"+report.getString("total_question")+"\n"
-                                                                + "Correct Answer:"+report.getString("correct_answer")+"\n"
-                                                                + "Percentage: "+report.getString("percentage")+"\n"
-                                                                + "Result: "+report.getString("result")+" ", 
-                                                        "Result", JOptionPane.INFORMATION_MESSAGE);
-                                            } catch (SQLException ex) {
-                                                Logger.getLogger(UserDash.class.getName()).log(Level.SEVERE, null, ex);
-                                            }
-                                    
-                                        }
-                                        
-                                    }else{
-                                        try {
-                                            MCQ_Exam mc=new MCQ_Exam();
-                                            mc.setVar(Integer.toString(id),logged,loggedId);
-
-                                            mc.setVisible(true);
-                                        } catch (SQLException ex) {
-                                            Logger.getLogger(UserDash.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-
-                                        dispose();
-
-                                        return;
-                                    }
-                                    
-                                }
-                            }
-                        });
-                        j1.setText(rs.getString("title"));
-                        j1.setBounds(x,y,150,60);
-                        jPanel4.add(j1);
-                        if(x+150>jPanel4.getWidth()){
-                            x=10;
-                            y+=80;
-                        }else{
-                            x+=200;
-                        }
-                        
+                        if(qCount>0){
+                            totalQ+=1;
+                            btnStart.setEnabled(true);
+                        }               
                         
                     }
                 }
 
             } catch (SQLException ex) {
                 Logger.getLogger(UserDash.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            lblTotal.setText(Integer.toString(totalQ));
+            
+            lblAtempted.setText(Integer.toString(attempted));    
+            if(totalQ==attempted){
+                btnStart.setEnabled(false);
             }
         }
         
@@ -280,13 +306,64 @@ public class UserDash extends javax.swing.JFrame {
         l.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
+        try {
+            // TODO add your handling code here:
+            ResultSet attemptedCount=Connect.getResult("select count(*) from reports where user_id="+this.loggedId+"");
+            
+            ResultSet attempted=Connect.getResult("select question_set_id from reports where user_id="+this.loggedId+"");
+            if(attemptedCount.next()){
+                List<Integer> qs_id = new ArrayList<>();
+                String [] c =new String[attemptedCount.getInt(1)]; 
+                int counter=0;
+                while(attempted.next()){
+                    c[counter]=Integer.toString(attempted.getInt("question_set_id"));
+                    qs_id.add(attempted.getInt("question_set_id"));
+                    System.out.println(c[counter]);
+                    counter+=1;
+                    
+                }
+                List<Integer> list = new ArrayList<>();
+                ResultSet rs;
+                if(c.length==0){
+                    
+                    rs=Connect.getResult("select * from question_sets where subject_id="+selectedSubject+"");
+              
+                }else{
+                    String cs = String.join(",", c);
+
+                    rs=Connect.getResult("select * from question_sets where subject_id="+selectedSubject+" and id NOT IN ("+cs+")");
+              
+                }
+                while(rs.next()){
+                    list.add(rs.getInt(1));
+                }
+                MCQ_Exam mc=new MCQ_Exam();
+                Random rand = new Random();
+                mc.setVar(Integer.toString(list.get(rand.nextInt(list.size()))),logged,loggedId);
+
+                mc.setVisible(true);
+                dispose();
+                
+            }
+            
+            
+//            if(rs.next())
+//            {
+//                
+//            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDash.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnStartActionPerformed
     
     public int getQuestionCount(int id) throws SQLException
     {
         ResultSet r=Connect.getResult("select count(*) as count from questions where question_set_id="+id+"");
         if(r.next())
         {
-            System.out.println(r.getInt("count"));
+//            System.out.println(r.getInt("count"));
             return r.getInt("count");
         }
         return 0;
@@ -342,18 +419,38 @@ public class UserDash extends javax.swing.JFrame {
 //            cmbSubject.set;
         }
 //        cmbSubject.setSelectedItem(null);
+        ResultSet result=Connect.getResult("select s.name,qs.title,r.total_question,r.correct_answer,r.percentage,r.result "
+                + "from reports as r, question_sets as qs,subjects as s"
+                + " where r.question_set_id=qs.id  and s.id=qs.subject_id"
+                + " and user_id="+loggedId+" ");
         
+        DefaultTableModel model = (DefaultTableModel) tblResult.getModel();
+        int counter=1;
+        while(result.next())
+        {
+            model.addRow(new Object[]{counter, result.getString(1), 
+            result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6)});
+            counter++;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnStart;
     private javax.swing.JComboBox<String> cmbSubject;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAtempted;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUser;
+    private javax.swing.JTable tblResult;
     // End of variables declaration//GEN-END:variables
 }

@@ -72,6 +72,7 @@ public class AdminQuestion extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin | Question");
         setResizable(false);
 
         table.setModel(new javax.swing.table.DefaultTableModel(

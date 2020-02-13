@@ -76,6 +76,7 @@ public class MCQ_Exam extends javax.swing.JFrame {
         lblUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("User | MCQ Exam");
         setResizable(false);
 
         btnSubmit.setText("Submit");

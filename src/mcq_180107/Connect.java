@@ -20,12 +20,12 @@ import java.sql.*;
 public class Connect {
     
    static Connection con =null;
-   public static    Connection getConnection()
+   public static Connection getConnection()
     {
         try{  
         Class.forName("com.mysql.jdbc.Driver");  
          con=DriverManager.getConnection("jdbc:mysql://localhost:3306/java","root","");  
-        System.out.println("Database connected");
+        System.out.println("Quering..");
         }catch(Exception e){ 
             e.printStackTrace();
             System.out.println(e);

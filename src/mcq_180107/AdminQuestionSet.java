@@ -57,6 +57,7 @@ public class AdminQuestionSet extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin | Question Set");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
